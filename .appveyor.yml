@@ -1,5 +1,9 @@
 image: Visual Studio 2017
 
+# Test against the latest version of this Node.js version
+environment:
+  nodejs_version: "8.9.1"
+
 platform:
   - x64
 
@@ -11,7 +15,7 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - ps: Install-Product node 8 x86
+  - ps: Install-Product node $env:nodejs_version x86
   - npm install
 
 build_script:
