@@ -41,6 +41,7 @@
           ]
         }
       ],
+      "publish": ["github"],
       "icon": "build/icon.ico",
       "publisherName": "Kandra Labs, Inc."
     },
