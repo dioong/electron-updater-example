@@ -1,16 +1,20 @@
 // This is free and unencumbered software released into the public domain.
 // See LICENSE for details
 
-const {app, BrowserWindow, Menu, protocol, ipcMain} = require('electron');
+const {app, BrowserWindow, Menu, protocol, ipcMain, autoUpdater} = require('electron');
 const log = require('electron-log');
-const {autoUpdater} = require("electron-updater");
+
+const server = 'http://localhost:3000:'
+const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+
 
 //-------------------------------------------------------------------
 // Logging
 //
 // THIS SECTION IS NOT REQUIRED
 //
-// This logging setup is not required for auto-updates to work,
+// This logging setup is not required for auto-up
+// dates to work,
 // but it sure makes debugging easier :)
 //-------------------------------------------------------------------
 autoUpdater.logger = log;
@@ -67,13 +71,24 @@ function createDefaultWindow() {
   win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
   return win;
 }
+console.log(feed)
+
+autoUpdater.setFeedURL(feed)
+
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 })
 autoUpdater.on('update-available', (info) => {
+  console.log('Update available.');
+  console.log(info);
+console.log('Update available.');
   sendStatusToWindow('Update available.');
+sendStatusToWindow(JSON.stringify(info));
 })
 autoUpdater.on('update-not-available', (info) => {
+  console.log('update-not-available');
+  console.log(info);
+  console.log('update-not-available');
   sendStatusToWindow('Update not available.');
 })
 autoUpdater.on('error', (err) => {
