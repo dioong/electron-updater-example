@@ -1,3 +1,7 @@
+deploy:
+  provider: npm
+  email: "killerdine@gmail.com"
+  api_key: "ecd3323d-88db-47b0-8bee-6bb61e0026e1"
 matrix:
   include:
     - os: osx
